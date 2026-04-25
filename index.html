@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Notion Pomodoro Widget</title>
+  <title>Sharp Aesthetic Pomodoro</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
   <style>
     :root {
       --white: #ffffff;
       --black: #000000;
-      --overlay: rgba(0, 0, 0, 0.4);
+      --overlay: rgba(0, 0, 0, 0.45); /* Slightly darker for better text contrast */
       --glass: rgba(255, 255, 255, 0.15);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: transparent;
+      background: #000;
       font-family: 'Inter', sans-serif;
       height: 100vh;
       display: flex;
@@ -26,18 +26,21 @@
       container-type: inline-size;
     }
 
+    /* THE QUALITY FIX: Background Layer */
     .widget-container {
       position: absolute;
-      inset: 0;
+      inset: -10px; /* Slight offset to prevent white edges when blurring */
       background-size: cover;
       background-position: center;
       transition: background-image 1s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      
+      /* This hides pixelation in low-res images */
+      filter: blur(4px); 
+      -webkit-filter: blur(4px);
+      transform: scale(1.05); /* Zoom slightly so blur doesn't show edges */
     }
 
+    /* Dark Overlay for Readability */
     .widget-container::before {
       content: '';
       position: absolute;
@@ -57,13 +60,14 @@
       gap: 1.5cqh;
     }
 
+    /* TIMER TEXT - Always Sharp */
     #pomodoro-timer {
       font-size: clamp(40px, 25cqw, 120px); 
       font-weight: 800;
       letter-spacing: -0.05em;
       line-height: 1;
       font-variant-numeric: tabular-nums;
-      text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      text-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
     .mode-row {
@@ -83,8 +87,8 @@
       font-weight: 600;
       text-transform: uppercase;
       cursor: pointer;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       transition: all 0.2s;
     }
 
@@ -111,6 +115,7 @@
       font-size: clamp(12px, 4cqw, 16px);
       text-transform: uppercase;
       cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
 
     .icon-btn {
@@ -124,18 +129,19 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(12px);
     }
 
     .theme-toggle {
       position: absolute;
-      bottom: 15px;
-      background: rgba(0, 0, 0, 0.3);
+      bottom: 20px;
+      background: rgba(0, 0, 0, 0.5);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      color: rgba(255, 255, 255, 0.6);
-      padding: 5px 12px;
+      color: #fff;
+      padding: 6px 15px;
       border-radius: 5px;
-      font-size: 9px;
+      font-size: 10px;
+      font-weight: 600;
       text-transform: uppercase;
       cursor: pointer;
       z-index: 20;
@@ -161,17 +167,18 @@
   </div>
 </div>
 
-<button class="theme-toggle" id="theme-btn" onclick="nextImage()">Next BG</button>
+<button class="theme-toggle" id="theme-btn" onclick="nextImage()">Next Background</button>
 
 <script>
-  // Fixed Array: Removed fancy quotes and added direct links
   const images = [
     'https://i.postimg.cc/TYdjG7vX/9436360760a3dad98fa314735315ccc4.jpg',
-    'https://i.postimg.cc/fRPXVbsv/download-(1).jpg',
-    'https://i.postimg.cc/pLS8mdvZ/download-(2).jpg',
-    'https://i.postimg.cc/7ZR75L49/download-(3).jpg',
-    'https://i.postimg.cc/9QkTDf2t/image.jpg',
-    'https://i.postimg.cc/pLS8mdvk/shgdb.jpg'
+    'https://i.postimg.cc/SNSLqTbN/download.jpg',
+    'https://i.postimg.cc/WdMtKThD/download-1.jpg',
+    'https://i.postimg.cc/WdMtKThF/download-2.jpg',
+    'https://i.postimg.cc/K1n4VxR3/download-3.jpg',
+    'https://i.postimg.cc/DSqmDn88/image.jpg',
+    'https://i.postimg.cc/MnyX4qvj/shgdb.jpg',
+    'https://i.postimg.cc/HsY0HZ1Y/fc3071b2bb7d6bbc216b31f0dd534d2b.jpg'
   ];
   
   let currentImgIndex = 0;
@@ -183,6 +190,7 @@
     bgContainer.style.backgroundImage = `url('${images[currentImgIndex]}')`;
   }
 
+  // Timer Logic
   let defaultMins = 25;
   let timeLeft = defaultMins * 60;
   let timerId = null;
