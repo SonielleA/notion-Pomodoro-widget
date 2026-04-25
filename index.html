@@ -23,7 +23,6 @@
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      /* This allows the widget to respond to its own size */
       container-type: inline-size;
     }
 
@@ -55,12 +54,10 @@
       width: 90%;
       display: flex;
       flex-direction: column;
-      gap: 1.5cqh; /* Scales gap based on container height */
+      gap: 1.5cqh;
     }
 
-    /* SCALEABLE TYPOGRAPHY */
     #pomodoro-timer {
-      /* Scales from 40px to 120px based on widget width */
       font-size: clamp(40px, 25cqw, 120px); 
       font-weight: 800;
       letter-spacing: -0.05em;
@@ -167,14 +164,15 @@
 <button class="theme-toggle" id="theme-btn" onclick="nextImage()">Next BG</button>
 
 <script>
+  // Fixed Array: Removed fancy quotes and added direct links
   const images = [
     'https://i.postimg.cc/TYdjG7vX/9436360760a3dad98fa314735315ccc4.jpg',
     'https://i.postimg.cc/SNSLqTbN/download.jpg',
-    'https://i.postimg.cc/fRPXVbsv/download-(1).jpg, 
-    'https://i.postimg.cc/pLS8mdvZ/download-(2).jpg’,
-    'https://i.postimg.cc/7ZR75L49/download-(3).jpg’, 
-    'https://i.postimg.cc/9QkTDf2t/image.jpg’, 
-    'https://i.postimg.cc/pLS8mdvk/shgdb.jpg’,
+    'https://i.postimg.cc/WdMtKThD/download-1.jpg',
+    'https://i.postimg.cc/WdMtKThF/download-2.jpg',
+    'https://i.postimg.cc/K1n4VxR3/download-3.jpg',
+    'https://i.postimg.cc/DSqmDn88/image.jpg',
+    'https://i.postimg.cc/MnyX4qvj/shgdb.jpg',
     'https://i.postimg.cc/HsY0HZ1Y/fc3071b2bb7d6bbc216b31f0dd534d2b.jpg'
   ];
   
